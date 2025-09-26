@@ -8,12 +8,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "tags")
 
-public class Tags {
+@Entity
+@Table(name = "tag")
+
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tag_id", nullable = false)
