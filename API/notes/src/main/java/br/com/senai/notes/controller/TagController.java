@@ -43,6 +43,29 @@ public class TagController {
         return ResponseEntity.ok(tag);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarTagPorId(@PathVariable Integer id) {
+        Tag tag = tagService.buscarPorId(id);
+
+        if (tag == null) {
+            return ResponseEntity.status(404).build();
+        }
+
+        return ResponseEntity.ok(tag);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarTag(
+            @PathVariable Integer id,
+            @RequestBody Tag tagNovo
+    ) {
+        Tag tag = tagService.atualizarTag(id, tagNovo);
+        if (tag == null) {
+            return ResponseEntity.status(404).build();
+        }
+        return ResponseEntity.ok(tag);
+    }
+
 
 
 }
