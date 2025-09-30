@@ -31,6 +31,7 @@ public class TagController {
     public ResponseEntity<CadastrarTagDTO> adicionarTag(@RequestBody CadastrarTagDTO dto) {
         tagService.adicionarTag(dto);
         return ResponseEntity.ok(dto);
+        //TODO: TERMINAR DE TROCAR O RESTO
     }
 
     @GetMapping("/{id}")
