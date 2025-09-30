@@ -1,6 +1,7 @@
 package br.com.senai.notes.service;
 
 
+import br.com.senai.notes.dto.usuario.UsuarioCadastroDto;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,17 @@ public class UsuarioService {
     }
 
     // CADASTRAR
-    public Usuario cadastrarUsuario(Usuario us) {
-       return usuarioRepository.save(us);
+    public Usuario cadastrarUsuario(UsuarioCadastroDto dto) {
+
+        Usuario usuario = new Usuario();
+
+        usuario.setEmail(dto.getEmail());
+        usuario.setNomeCompleto(dto.getNomeCompleto());
+        usuario.setSenha(dto.getSenha());
+
+
+
+        return usuarioRepository.save(usuario);
     }
 
     // BUSCAR

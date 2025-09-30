@@ -1,6 +1,7 @@
 package br.com.senai.notes.controller;
 
 
+import br.com.senai.notes.dto.usuario.UsuarioCadastroDto;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -29,11 +30,13 @@ public class UsuarioController {
    // CADASTRAR
     @PostMapping
     public ResponseEntity<Usuario> cadastrarUsuario(
-            @RequestBody Usuario usuario) {
+            @RequestBody UsuarioCadastroDto dto) {
+
+        Usuario usuario = usuarioService.cadastrarUsuario(dto);
 
         //1.
 
-        usuarioService.cadastrarUsuario(usuario);
+        usuarioService.cadastrarUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
 
 
@@ -42,7 +45,7 @@ public class UsuarioController {
     // buscar
     @GetMapping("/{id}")
 
-    public ResponseEntity<?> buscarusuarioPorId(@PathVariable Integer id) {
+    public ResponseEntity<?> buscarUsuarioPorId(@PathVariable Integer id) {
         //1.
         Usuario usuario = usuarioService.buscarPorId(id);
 
