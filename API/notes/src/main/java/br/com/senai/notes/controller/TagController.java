@@ -28,9 +28,9 @@ public class TagController {
     }
 
     @PostMapping
-    public ResponseEntity<Tag> adicionarTag(@RequestBody Tag tag) {
-        tagService.adicionarTag(tag);
-        return ResponseEntity.ok(tag);
+    public ResponseEntity<CadastrarTagDTO> adicionarTag(@RequestBody CadastrarTagDTO dto) {
+        tagService.adicionarTag(dto);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/{id}")

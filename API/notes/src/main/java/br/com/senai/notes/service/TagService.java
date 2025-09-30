@@ -1,5 +1,6 @@
 package br.com.senai.notes.service;
 
+import br.com.senai.notes.dto.tag.CadastrarTagDTO;
 import br.com.senai.notes.model.Tag;
 import br.com.senai.notes.repository.TagRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,11 @@ public class TagService {
         return tagRepository.findById(id).orElse(null);
     }
 
-    public Tag adicionarTag(Tag tag) {
+    public Tag adicionarTag(CadastrarTagDTO dto) {
+        Tag tag = new Tag();
+
+        tag.setTitulo(dto.getTitulo());
+
         return tagRepository.save(tag);
     }
 
