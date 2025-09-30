@@ -1,5 +1,6 @@
 package br.com.senai.notes.controller;
 
+import br.com.senai.notes.dto.tag.CadastrarTagDTO;
 import br.com.senai.notes.model.Tag;
 import br.com.senai.notes.service.TagService;
 import org.springframework.http.ResponseEntity;
