@@ -16,48 +16,67 @@ public class TagService {
 
     public TagService(TagRepository repo) { tagRepository = repo; }
     public List<ListarTagDTO> ListarTodos() {
-        return tagRepository.findAll()
-                .stream()
-                .map(ListarTagDTO::new)
+
+        List<Tag> tags = tagRepository.findAll();
+
+        return tags.stream()
+                .map(this::converterParaListagemDTO)
                 .collect(Collectors.toList());
     }
 
-    public List<Tag> findByUsuarioEmail(String email) {
-        return tagRepository.findByUsuarioEmail(email);
+    public List<ListarTagDTO> findByUsuarioEmail(String email) {
+
+        return tagRepository.findByUsuarioEmail(email)
+                .stream()
+                .map(this::converterParaListagemDTO)
+                .collect(Collectors.toList());
+
     }
 
-    public Tag buscarPorId(Integer id) {
-        return tagRepository.findById(id).orElse(null);
+    public ListarTagDTO buscarPorId(Integer id) {
+
+        return tagRepository.findById(id)
+                .map(this::converterParaListagemDTO)
+                .orElse(null);
+
     }
 
-    public Tag adicionarTag(CadastrarTagDTO dto) {
+    public ListarTagDTO adicionarTag(CadastrarTagDTO dto) {
         Tag tag = new Tag();
-
         tag.setTitulo(dto.getTitulo());
-
-        return tagRepository.save(tag);
+        Tag salvo = tagRepository.save(tag);
+        return converterParaListagemDTO(salvo);
     }
 
-    public Tag deletarTag(Integer id) {
-        Tag tag = buscarPorId(id);
+    public ListarTagDTO deletarTag(Integer id) {
+        Tag tag = tagRepository.findById(id).orElse(null);
 
-        if(tag == null) {
+        if (tag == null) {
             return null;
         }
 
         tagRepository.delete(tag);
-        return tag;
+        return converterParaListagemDTO(tag);
     }
 
-    public Tag atualizarTag(Integer id, Tag tagNovo) {
-        Tag tagAntigo = buscarPorId(id);
+    public ListarTagDTO atualizarTag(Integer id, CadastrarTagDTO dto) {
+        Tag tagAntigo = tagRepository.findById(id).orElse(null);
 
-        if(tagAntigo == null) {
+        if (tagAntigo == null) {
             return null;
         }
+        tagAntigo.setTitulo(dto.getTitulo());
+        Tag atualizada = tagRepository.save(tagAntigo);
+        return converterParaListagemDTO(atualizada);
 
-        tagAntigo.setTitulo(tagNovo.getTitulo());
-        return tagRepository.save(tagAntigo);
+    }
+
+    //Conversao Entidade para DTO
+    private ListarTagDTO converterParaListagemDTO(Tag tag) {
+        ListarTagDTO dto = new ListarTagDTO();
+        dto.setId(tag.getTagId());
+        dto.setTitulo(tag.getTitulo());
+        return dto;
     }
 
 }
