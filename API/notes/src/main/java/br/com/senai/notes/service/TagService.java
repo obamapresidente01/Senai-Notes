@@ -1,11 +1,13 @@
 package br.com.senai.notes.service;
 
 import br.com.senai.notes.dto.tag.CadastrarTagDTO;
+import br.com.senai.notes.dto.tag.ListarTagDTO;
 import br.com.senai.notes.model.Tag;
 import br.com.senai.notes.repository.TagRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TagService {
@@ -13,8 +15,11 @@ public class TagService {
     private final TagRepository tagRepository;
 
     public TagService(TagRepository repo) { tagRepository = repo; }
-    public List<Tag> ListarTodos() {
-        return tagRepository.findAll();
+    public List<ListarTagDTO> ListarTodos() {
+        return tagRepository.findAll()
+                .stream()
+                .map(ListarTagDTO::new)
+                .collect(Collectors.toList());
     }
 
     public List<Tag> findByUsuarioEmail(String email) {

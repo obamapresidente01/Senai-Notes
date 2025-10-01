@@ -1,6 +1,7 @@
 package br.com.senai.notes.controller;
 
 import br.com.senai.notes.dto.tag.CadastrarTagDTO;
+import br.com.senai.notes.dto.tag.ListarTagDTO;
 import br.com.senai.notes.model.Tag;
 import br.com.senai.notes.service.TagService;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,9 @@ public class TagController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Tag>> listarTags() {
+    public ResponseEntity<List<ListarTagDTO>> listarTags() {
 
-        List<Tag> tags = tagService.ListarTodos();
+        List<ListarTagDTO> tags = tagService.ListarTodos();
 
         return ResponseEntity.ok(tags);
     }
