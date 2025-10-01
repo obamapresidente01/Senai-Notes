@@ -2,6 +2,7 @@ package br.com.senai.notes.service;
 
 
 import br.com.senai.notes.dto.usuario.UsuarioCadastroDto;
+import br.com.senai.notes.dto.usuario.UsuarioListarDto;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,18 @@ public class UsuarioService {
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
+
+//    private UsuarioListarDto converterUsuarioParaListarDTO(Usuario usuario) {
+//       UsuarioListarDto dto = new UsuarioListarDto();
+//
+//       // Mapeamento campo a campo
+//
+//    }
+
+
+
+
+
 
     // CADASTRAR
     public Usuario cadastrarUsuario(UsuarioCadastroDto dto) {
