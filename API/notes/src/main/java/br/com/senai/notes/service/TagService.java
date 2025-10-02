@@ -5,6 +5,7 @@ import br.com.senai.notes.dto.tag.ListarTagDTO;
 import br.com.senai.notes.model.Tag;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.repository.TagRepository;
+import br.com.senai.notes.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class TagService {
+
+    private final UsuarioRepository usuarioRepository;
 
     public Tag criarTag(CadastrarTagDTO dto) {
         Usuario usuarioAssociado = usuarioRepository.findById(dto.getUsuarioId()).orElse(null);
@@ -31,7 +34,9 @@ public class TagService {
 
     private final TagRepository tagRepository;
 
-    public TagService(TagRepository repo) { tagRepository = repo; }
+    public TagService(UsuarioRepository usuarioRepository, TagRepository repo) {
+        this.usuarioRepository = usuarioRepository;
+        tagRepository = repo; }
     public List<ListarTagDTO> ListarTodos() {
 
         List<Tag> tags = tagRepository.findAll();
