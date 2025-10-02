@@ -1,0 +1,7 @@
+1. escolher o banco
+2. escolher o modelo
+3. nomear o identificador
+4. informar a senha do usuário
+5. habilitar o acesso publico
+6. criar um grupo de segurança
+7. desabilitar performance insights

@@ -32,13 +32,13 @@ public class TagController {
     public ResponseEntity<CadastrarTagDTO> adicionarTag(@RequestBody CadastrarTagDTO dto) {
         tagService.adicionarTag(dto);
         return ResponseEntity.ok(dto);
-        //TODO: TERMINAR DE TROCAR O RESTO
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> atualizarTagPorId(@PathVariable Integer id, @RequestBody Tag tagNovo) {
+    public ResponseEntity<?> atualizarTagPorId(@PathVariable Integer id, @RequestBody CadastrarTagDTO dto) {
 
-        Tag tag = tagService.atualizarTag(id, tagNovo);
+        ListarTagDTO tag = tagService.atualizarTag(id, dto);
 
         if (tag == null) {
             return ResponseEntity.status(404).build();
@@ -48,7 +48,7 @@ public class TagController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarTagPorId(@PathVariable Integer id) {
-        Tag tag = tagService.buscarPorId(id);
+        ListarTagDTO tag = tagService.buscarPorId(id);
 
         if (tag == null) {
             return ResponseEntity.status(404).build();
@@ -60,9 +60,9 @@ public class TagController {
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarTag(
             @PathVariable Integer id,
-            @RequestBody Tag tagNovo
+            @RequestBody CadastrarTagDTO dto
     ) {
-        Tag tag = tagService.atualizarTag(id, tagNovo);
+        ListarTagDTO tag = tagService.atualizarTag(id, dto);
         if (tag == null) {
             return ResponseEntity.status(404).build();
         }

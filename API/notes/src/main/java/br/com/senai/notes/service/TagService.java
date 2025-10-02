@@ -3,6 +3,7 @@ package br.com.senai.notes.service;
 import br.com.senai.notes.dto.tag.CadastrarTagDTO;
 import br.com.senai.notes.dto.tag.ListarTagDTO;
 import br.com.senai.notes.model.Tag;
+import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.repository.TagRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,22 @@ import java.util.stream.Collectors;
 
 @Service
 public class TagService {
+
+    public Tag criarTag(CadastrarTagDTO dto) {
+        Usuario usuarioAssociado = usuarioRepository.findById(dto.getUsuarioId()).orElse(null);
+
+        if (usuarioAssociado == null) {
+            return null;
+        }
+
+        Tag novaTag = new Tag();
+
+        novaTag.setTitulo(dto.getTitulo());
+        novaTag.setUsuario(usuarioAssociado);
+
+        return tagRepository.save(novaTag);
+
+    }
 
     private final TagRepository tagRepository;
 
