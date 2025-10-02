@@ -2,6 +2,7 @@ package br.com.senai.notes.controller;
 
 
 import br.com.senai.notes.dto.usuario.UsuarioCadastroDto;
+import br.com.senai.notes.dto.usuario.UsuarioListarDto;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,9 @@ public class UsuarioController {
 
    // LISTAR
    @GetMapping
-   ResponseEntity<List<Usuario>> listarUsuario() {
+   ResponseEntity<List<UsuarioListarDto>> listarUsuario() {
         // 1.
-       List<Usuario> usuarios = usuarioService.listarTodos();
+       List<UsuarioListarDto> usuarios = usuarioService.listarTodos();
 
        return ResponseEntity.ok(usuarios);
    }

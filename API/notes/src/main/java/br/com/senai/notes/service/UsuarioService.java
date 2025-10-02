@@ -8,6 +8,7 @@ import br.com.senai.notes.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -21,16 +22,28 @@ public class UsuarioService {
 
     // Listar
 
-    public List<Usuario> listarTodos() {
-        return usuarioRepository.findAll();
+    public List<UsuarioListarDto> listarTodos() {
+      // 1. Busca todas as entidades do banco
+       List<Usuario> usuarios = usuarioRepository.findAll();
+     /*   return usuarioRepository.findAll();*/
+
+        // 2. Mapeia a lista de entidades para uma lista de DTOs
+        return usuarios.stream()
+                .map(this::converterUsuarioParaListarDTO).collect(Collectors.toList());
+
     }
 
-//    private UsuarioListarDto converterUsuarioParaListarDTO(Usuario usuario) {
-//       UsuarioListarDto dto = new UsuarioListarDto();
-//
-//       // Mapeamento campo a campo
-//
-//    }/
+    private UsuarioListarDto converterUsuarioParaListarDTO(Usuario usuario) {
+       UsuarioListarDto dto = new UsuarioListarDto();
+
+       // Mapeamento campo a campo
+        dto.setNomeCompleto(usuario.getNomeCompleto());
+        dto.setEmail(usuario.getEmail());
+        dto.setUsuarioId(usuario.getUsuarioId());
+
+        return dto;
+
+    }
 
 
 
