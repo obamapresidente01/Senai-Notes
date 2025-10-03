@@ -1,6 +1,5 @@
 package br.com.senai.notes.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
