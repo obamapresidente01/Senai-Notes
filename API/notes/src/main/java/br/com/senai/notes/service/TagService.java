@@ -15,61 +15,53 @@ import java.util.stream.Collectors;
 public class TagService {
 
     private final UsuarioRepository usuarioRepository;
-
-    public Tag criarTag(CadastrarTagDTO dto) {
-        Usuario usuarioAssociado = usuarioRepository.findById(dto.getUsuarioId()).orElse(null);
-
-        if (usuarioAssociado == null) {
-            return null;
-        }
-
-        Tag novaTag = new Tag();
-
-        novaTag.setTitulo(dto.getTitulo());
-        novaTag.setUsuario(usuarioAssociado);
-
-        return tagRepository.save(novaTag);
-
-    }
-
     private final TagRepository tagRepository;
 
-    public TagService(UsuarioRepository usuarioRepository, TagRepository repo) {
+    public TagService(UsuarioRepository usuarioRepository, TagRepository tagRepository) {
         this.usuarioRepository = usuarioRepository;
-        tagRepository = repo; }
-    public List<ListarTagDTO> ListarTodos() {
+        this.tagRepository = tagRepository;
+    }
 
-        List<Tag> tags = tagRepository.findAll();
-
-        return tags.stream()
+    // LISTAR TODAS
+    public List<ListarTagDTO> listarTodos() {
+        return tagRepository.findAll()
+                .stream()
                 .map(this::converterParaListagemDTO)
                 .collect(Collectors.toList());
     }
 
+    // LISTAR POR EMAIL DO USUARIO
     public List<ListarTagDTO> findByUsuarioEmail(String email) {
-
         return tagRepository.findByUsuarioEmail(email)
                 .stream()
                 .map(this::converterParaListagemDTO)
                 .collect(Collectors.toList());
-
     }
 
+    // BUSCAR POR ID
     public ListarTagDTO buscarPorId(Integer id) {
-
         return tagRepository.findById(id)
                 .map(this::converterParaListagemDTO)
                 .orElse(null);
-
     }
 
+    // CADASTRAR
     public ListarTagDTO adicionarTag(CadastrarTagDTO dto) {
-        Tag tag = new Tag();
-        tag.setTitulo(dto.getTitulo());
-        Tag salvo = tagRepository.save(tag);
+        Usuario usuarioAssociado = usuarioRepository.findById(dto.getUsuarioId()).orElse(null);
+
+        if (usuarioAssociado == null) {
+            return null; // ou pode lançar uma exceção customizada
+        }
+
+        Tag novaTag = new Tag();
+        novaTag.setTitulo(dto.getTitulo());
+        novaTag.setUsuario(usuarioAssociado);
+
+        Tag salvo = tagRepository.save(novaTag);
         return converterParaListagemDTO(salvo);
     }
 
+    // DELETAR
     public ListarTagDTO deletarTag(Integer id) {
         Tag tag = tagRepository.findById(id).orElse(null);
 
@@ -81,24 +73,25 @@ public class TagService {
         return converterParaListagemDTO(tag);
     }
 
+    // ATUALIZAR
     public ListarTagDTO atualizarTag(Integer id, CadastrarTagDTO dto) {
         Tag tagAntigo = tagRepository.findById(id).orElse(null);
 
         if (tagAntigo == null) {
             return null;
         }
-        tagAntigo.setTitulo(dto.getTitulo());
-        Tag atualizada = tagRepository.save(tagAntigo);
-        return converterParaListagemDTO(atualizada);
 
+        tagAntigo.setTitulo(dto.getTitulo());
+        Tag atualizado = tagRepository.save(tagAntigo);
+
+        return converterParaListagemDTO(atualizado);
     }
 
-    //Conversao Entidade para DTO
+    // CONVERSÃO ENTIDADE > DTO
     private ListarTagDTO converterParaListagemDTO(Tag tag) {
         ListarTagDTO dto = new ListarTagDTO();
         dto.setId(tag.getTagId());
         dto.setTitulo(tag.getTitulo());
         return dto;
     }
-
 }

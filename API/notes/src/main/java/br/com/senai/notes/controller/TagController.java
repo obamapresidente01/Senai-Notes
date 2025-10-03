@@ -2,8 +2,9 @@ package br.com.senai.notes.controller;
 
 import br.com.senai.notes.dto.tag.CadastrarTagDTO;
 import br.com.senai.notes.dto.tag.ListarTagDTO;
-import br.com.senai.notes.model.Tag;
 import br.com.senai.notes.service.TagService;
+import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,55 +21,70 @@ public class TagController {
         this.tagService = service;
     }
 
+    // LISTAR TODAS
     @GetMapping
+    @Operation (
+            summary = "Metodo de Listar todas as tags",
+            description = "Retorna a lista de todas as tags cadastradas"
+    )
     public ResponseEntity<List<ListarTagDTO>> listarTags() {
-
-        List<ListarTagDTO> tags = tagService.ListarTodos();
-
+        List<ListarTagDTO> tags = tagService.listarTodos();
         return ResponseEntity.ok(tags);
     }
 
+    // CADASTRAR
     @PostMapping
-    public ResponseEntity<CadastrarTagDTO> adicionarTag(@RequestBody CadastrarTagDTO dto) {
-        tagService.adicionarTag(dto);
-        return ResponseEntity.ok(dto);
-
+    @Operation(
+            summary = "Adiciona uma tag para o usuario",
+            description = "Cria uma nova tag vinculada a um usuário"
+    )
+    public ResponseEntity<ListarTagDTO> adicionarTag(@RequestBody CadastrarTagDTO dto) {
+        ListarTagDTO novaTag = tagService.adicionarTag(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaTag);
     }
 
+    // BUSCAR POR ID
     @GetMapping("/{id}")
-    public ResponseEntity<?> atualizarTagPorId(@PathVariable Integer id, @RequestBody CadastrarTagDTO dto) {
-
-        ListarTagDTO tag = tagService.atualizarTag(id, dto);
-
-        if (tag == null) {
-            return ResponseEntity.status(404).build();
-        }
-        return ResponseEntity.ok(tag);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarTagPorId(@PathVariable Integer id) {
+    @Operation(
+            summary = "Busca uma tag pelo ID",
+            description = "Retorna os detalhes de uma tag pelo seu ID"
+    )
+    public ResponseEntity<ListarTagDTO> buscarPorId(@PathVariable Integer id) {
         ListarTagDTO tag = tagService.buscarPorId(id);
-
         if (tag == null) {
             return ResponseEntity.status(404).build();
         }
-
         return ResponseEntity.ok(tag);
     }
 
+    // DELETAR
+    @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Deleta a tag",
+            description = "Remove uma tag existente pelo seu ID"
+    )
+    public ResponseEntity<Void> deletarTagPorId(@PathVariable Integer id) {
+        ListarTagDTO tag = tagService.deletarTag(id);
+        if (tag == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(404).build();
+    }
+
+    // ATUALIZAR
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarTag(
+    @Operation(
+            summary = "Metodo de atualizar a tag do usuario",
+            description = "Atualiza os dados de uma tag existente pelo seu ID"
+    )
+    public ResponseEntity<ListarTagDTO> atualizarTag(
             @PathVariable Integer id,
             @RequestBody CadastrarTagDTO dto
     ) {
         ListarTagDTO tag = tagService.atualizarTag(id, dto);
         if (tag == null) {
-            return ResponseEntity.status(404).build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(tag);
     }
-
-
-
 }

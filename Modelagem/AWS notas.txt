@@ -5,3 +5,8 @@
 5. habilitar o acesso publico
 6. criar um grupo de segurança
 7. desabilitar performance insights
+
+trocar localhost e senha
+deletar a pasta do test para compilar o código
+abrir o terminal
+mvn clean package
