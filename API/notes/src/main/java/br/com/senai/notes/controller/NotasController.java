@@ -1,5 +1,7 @@
 package br.com.senai.notes.controller;
 
+import br.com.senai.notes.dto.anotacao.AnotacaoCadastrarDTO;
+import br.com.senai.notes.dto.anotacao.AnotacaoListarDTO;
 import br.com.senai.notes.model.Notas;
 import br.com.senai.notes.service.NotasService;
 import org.springframework.http.HttpStatus;
@@ -21,18 +23,19 @@ public class NotasController {
 
     @GetMapping
     //listar todas as notas
-    public ResponseEntity<List<Notas>> ListarNotas() {
+    public ResponseEntity<List<AnotacaoListarDTO>> Listar() {
         //1-pegar lista
-        List<Notas> notas = notasService.ListarTodos();
-        return ResponseEntity.ok().body(notas);
+        List<AnotacaoListarDTO> notas = notasService.ListarTodos();
+        return ResponseEntity.ok(notas);
     }
 
     @PostMapping
     //cadastrar notas
-    public ResponseEntity<Notas> cadastrarNota(@RequestBody Notas notas) {
-        //1 - tentar cadastrar anotacao
-        notasService.cadastrarNotas(notas);
-        return ResponseEntity.status(HttpStatus.CREATED).body(notas);
+    public ResponseEntity<Notas> cadastrarNota(@RequestBody AnotacaoCadastrarDTO dto) {
+
+        Notas anotacaoSalva = notasService.cadastrarNotas(dto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(anotacaoSalva);
     }
 
     @GetMapping("/{id}")
