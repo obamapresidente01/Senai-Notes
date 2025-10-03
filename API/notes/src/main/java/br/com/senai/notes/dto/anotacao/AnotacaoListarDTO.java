@@ -1,6 +1,6 @@
 package br.com.senai.notes.dto.anotacao;
 
-import br.com.senai.notes.model.Tag;
+
 import lombok.Getter;
 import lombok.Setter;
 

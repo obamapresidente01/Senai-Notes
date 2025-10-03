@@ -3,6 +3,7 @@ package br.com.senai.notes.service;
 import br.com.senai.notes.dto.anotacao.AnotacaoCadastrarDTO;
 import br.com.senai.notes.dto.anotacao.AnotacaoListarDTO;
 import br.com.senai.notes.model.Notas;
+import br.com.senai.notes.model.Tag;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.repository.NotasRepository;
 import br.com.senai.notes.repository.TagRepository;
@@ -66,8 +67,8 @@ public class NotasService {
         novaAnotacao.setTitulo(dto.getTitulo());
         novaAnotacao.setConteudo(dto.getConteudo());
         novaAnotacao.setImagemUrl(dto.getImagemUrl());
-        novaAnotacao.setUsuario(dto.getUsuario());
-        novaAnotacao.setTag(dto.getTag());
+//        novaAnotacao.setUsuario(dto.getUsuario());
+//        novaAnotacao.setTag(dto.getTag());
 
         return notasRepository.save(novaAnotacao);
     }
