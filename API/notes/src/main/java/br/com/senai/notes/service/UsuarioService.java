@@ -85,7 +85,7 @@ public class UsuarioService {
 
 
         // ATUALIZAR
-        public Usuario atualizarUsuario(Integer id, Usuario usuarioNovo) {
+        public Usuario atualizarUsuario(Integer id, UsuarioCadastroDto dto) {
             // 1. procurar quem eu vou atualizar
             Usuario usuarioAntigo = buscarPorId(id);
 
@@ -95,9 +95,9 @@ public class UsuarioService {
             }
 
             // 3.
-            usuarioAntigo.setEmail(usuarioNovo.getEmail());
-            usuarioAntigo.setSenha(usuarioNovo.getSenha());
-            usuarioAntigo.setNomeCompleto(usuarioNovo.getNomeCompleto());
+            usuarioAntigo.setEmail(dto.getEmail());
+            usuarioAntigo.setSenha(dto.getSenha());
+            usuarioAntigo.setNomeCompleto(dto.getNomeCompleto());
             return usuarioRepository.save(usuarioAntigo);
 
         }

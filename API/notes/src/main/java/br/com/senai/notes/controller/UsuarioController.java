@@ -77,9 +77,9 @@ public class UsuarioController {
     // ATUALIZAR
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarUsuario (
-            @PathVariable Integer id, @RequestBody Usuario usuarioNovo) {
+            @PathVariable Integer id, @RequestBody UsuarioCadastroDto dto) {
         // 1.
-        Usuario usuario = usuarioService.atualizarUsuario(id, usuarioNovo);
+        Usuario usuario = usuarioService.atualizarUsuario(id, dto);
 
         // 2.
         if (usuario == null) {
