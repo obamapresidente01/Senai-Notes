@@ -5,6 +5,7 @@ import br.com.senai.notes.dto.usuario.UsuarioCadastroDto;
 import br.com.senai.notes.dto.usuario.UsuarioListarDto;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +15,13 @@ import java.util.stream.Collectors;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
-   public UsuarioService(UsuarioRepository repo) {
+
+   public UsuarioService(UsuarioRepository repo, PasswordEncoder passwordEncoder) {
        usuarioRepository = repo;
-
-    }
+       this.passwordEncoder = passwordEncoder;
+   }
 
     // Listar
 
@@ -55,9 +58,10 @@ public class UsuarioService {
 
         Usuario usuario = new Usuario();
 
+        String senhaCriptografada = passwordEncoder.encode(dto.getSenha());
         usuario.setEmail(dto.getEmail());
         usuario.setNomeCompleto(dto.getNomeCompleto());
-        usuario.setSenha(dto.getSenha());
+        usuario.setSenha(senhaCriptografada);
 
 
 
