@@ -43,6 +43,20 @@ public class TagController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTag);
     }
 
+    // LISTAR POR EMAIL
+
+    @GetMapping("/usuario/{email}")
+    @Operation(summary = "Listar tags por e-mail", description = "Retorna todas as tags vinculadas a um usuário pelo e-mail informado")
+    public ResponseEntity<List<ListarTagDTO>> listarTagsPorEmail(@PathVariable String email) {
+        List<ListarTagDTO> tags = tagService.findByUsuarioEmail(email);
+
+        if (tags.isEmpty()) {
+            return ResponseEntity.status(404).build();
+        }
+
+        return ResponseEntity.ok(tags);
+    }
+
     // BUSCAR POR ID
     @GetMapping("/{id}")
     @Operation(
