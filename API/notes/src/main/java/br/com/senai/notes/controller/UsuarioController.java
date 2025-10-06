@@ -5,6 +5,7 @@ import br.com.senai.notes.dto.usuario.UsuarioCadastroDto;
 import br.com.senai.notes.dto.usuario.UsuarioListarDto;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.service.UsuarioService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@SecurityRequirement(name = "segurancanotes")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;

@@ -4,6 +4,7 @@ import br.com.senai.notes.dto.tag.CadastrarTagDTO;
 import br.com.senai.notes.dto.tag.ListarTagDTO;
 import br.com.senai.notes.service.TagService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tags")
+@SecurityRequirement(name = "segurancanotes")
 @io.swagger.v3.oas.annotations.tags.Tag(name = "Tags", description = "Metodos de Tags")
 public class TagController {
 

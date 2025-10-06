@@ -76,7 +76,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                                 .requestMatchers("/api/usuarios/**").permitAll()
 
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
                 )
 
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));

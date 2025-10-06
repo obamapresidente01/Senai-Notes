@@ -74,9 +74,8 @@ public class NotasService {
 
         notasRepository.save(novaAnotacao);
 
-        AnotacaoListarDTO anotacaoListarDTO = new AnotacaoListarDTO();
 
-        return anotacaoListarDTO;
+        return notasRepository.save(novaAnotacao);
     }
 
     //buscar por id

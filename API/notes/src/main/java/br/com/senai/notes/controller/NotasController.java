@@ -4,6 +4,7 @@ import br.com.senai.notes.dto.anotacao.AnotacaoCadastrarDTO;
 import br.com.senai.notes.dto.anotacao.AnotacaoListarDTO;
 import br.com.senai.notes.model.Notas;
 import br.com.senai.notes.service.NotasService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/notas")
+@SecurityRequirement(name = "segurancanotes")
 
 public class NotasController {
 
