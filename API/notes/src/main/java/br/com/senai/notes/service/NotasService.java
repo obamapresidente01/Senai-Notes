@@ -10,6 +10,7 @@ import br.com.senai.notes.repository.TagRepository;
 import br.com.senai.notes.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,10 +68,15 @@ public class NotasService {
         novaAnotacao.setTitulo(dto.getTitulo());
         novaAnotacao.setConteudo(dto.getConteudo());
         novaAnotacao.setImagemUrl(dto.getImagemUrl());
-//        novaAnotacao.setUsuario(dto.getUsuario());
-//        novaAnotacao.setTag(dto.getTag());
+        novaAnotacao.setUsuario(usuarioAssociado);
+        novaAnotacao.setTag(tagAssociado);
+        novaAnotacao.setData(OffsetDateTime.now());
 
-        return notasRepository.save(novaAnotacao);
+        notasRepository.save(novaAnotacao);
+
+        AnotacaoListarDTO anotacaoListarDTO = new AnotacaoListarDTO();
+
+        return anotacaoListarDTO;
     }
 
     //buscar por id

@@ -36,8 +36,6 @@ public class UsuarioController {
         Usuario usuario = usuarioService.cadastrarUsuario(dto);
 
         //1.
-
-        usuarioService.cadastrarUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
 
 
