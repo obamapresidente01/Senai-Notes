@@ -23,9 +23,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 @Configuration
 @EnableWebSecurity
-public class SecutiryConfiguration {
+public class SecurityConfiguration {
 
-    private String jwtSecret = "L-32J8gBv_K)Z&_+:MRq=6a11[Cx3_D'W/tU-SO&8bo'_9(C_*853N*YwLNv>V";;
+    private String jwtSecret = "L-32J8gBv_K)Z&_+:MRq=6a11[Cx3_D'W/tU-SO&8bo'_9(C_*853N*YwLNv>V";
 
     // 1. Gerador de tokens (jwt Encoder)
     @Bean
@@ -72,7 +72,7 @@ public class SecutiryConfiguration {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/api/auth//**").permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                                 .requestMatchers("/api/usuarios/**").permitAll()
 
@@ -81,7 +81,7 @@ public class SecutiryConfiguration {
 
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 
-
+//
         return http.build();
 
     }
