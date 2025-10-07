@@ -87,6 +87,9 @@ public class NotasService {
         return notasRepository.findById(id).orElse(null);
     }
 
+    //buscar por email
+    public List<Notas> buscarPorEmail(String email) { return notasRepository.findByUsuarioEmail(email); }
+
     //deletar notas
     public Notas deletarNotas(Integer id) {
         Notas notas = buscarPorId(id);

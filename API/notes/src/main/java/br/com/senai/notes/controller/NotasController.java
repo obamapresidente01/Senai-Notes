@@ -29,7 +29,7 @@ public class NotasController {
     @GetMapping
     @Operation(
             summary = "Metodo de Listar todas as Anotacoes",
-            description = "Retorna a lista de todas as anotacoes cadastradas"
+            description = "Esse metodo mostra todas as anotacoes"
     )
     //listar todas as notas
     public ResponseEntity<List<AnotacaoListarDTO>> Listar() {
@@ -41,7 +41,7 @@ public class NotasController {
     @PostMapping
     @Operation(
             summary = "Metodo de cadastrar todas as Anotacoes",
-            description = "Retorna a lista de todas as anotacoes cadastradas"
+            description = "Cadastro de Anotacoes"
     )
 
     //cadastrar notas
@@ -59,7 +59,7 @@ public class NotasController {
     @GetMapping("/{id}")
     @Operation(
             summary = "Metodo de buscar todas as Anotacoes",
-            description = "Retorna a lista de todas as anotacoes cadastradas"
+            description = "Buscar Anotacoes por ID"
     )
     //buscar anotacao por id
     public ResponseEntity<?> buscarAnotacaoPorId(@PathVariable Integer id) {
@@ -74,10 +74,29 @@ public class NotasController {
         return ResponseEntity.ok(notas);
     }
 
+
+    @GetMapping("/{id}")
+    @Operation(
+            summary = "Metodo de buscar todas as Anotacoes por Email",
+            description = "Buscar Anotacoes por Email"
+    )
+    //buscar anotacao por EMAIL
+    public ResponseEntity<?> buscarAnotacaoPorEmail(@PathVariable String email) {
+        //1-procurar anotacao
+        List<Notas> notas = notasService.buscarPorEmail(email);
+        //2-se nao encontrar, retornar erro
+        if (notas == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Anotacão " + email + "não encontrada!");
+        }
+        //3-se encontrar, retorno a anotacao
+        return ResponseEntity.ok(notas);
+    }
+
+
     @DeleteMapping("/{id}")
     @Operation(
             summary = "Metodo de deletar todas as Anotacoes",
-            description = "Retorna a lista de todas as anotacoes cadastradas"
+            description = "Metodo para deletar Anotacoes Existentes"
     )
     //deletar anotacao
     public ResponseEntity<?> deletarAnotacao(@PathVariable Integer id) {
@@ -94,7 +113,7 @@ public class NotasController {
     @PutMapping("/{id}")
     @Operation(
             summary = "Metodo de atualizar Anotacoes",
-            description = "Retorna a lista de todas as anotacoes cadastradas"
+            description = "Metodo para atualizar Anotacoes Existentes"
     )
     public ResponseEntity<?> atualizarAnotacao(@PathVariable Integer id, @RequestBody Notas notaNova) {
         //1-procuro a anotacao e tento atualizar

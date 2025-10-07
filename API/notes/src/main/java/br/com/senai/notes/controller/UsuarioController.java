@@ -39,7 +39,7 @@ public class UsuarioController {
     @PostMapping
     @Operation(
             summary = "Metodo de cadastrar Usuario",
-            description = "Retorna a lista de todos os Usuarios cadastrados"
+            description = "Metodo para cadastrar Usuario"
     )
     public ResponseEntity<Usuario> cadastrarUsuario(
             @RequestBody UsuarioCadastroDto dto) {
@@ -56,7 +56,7 @@ public class UsuarioController {
     @GetMapping("/{id}")
     @Operation(
             summary = "Metodo de buscar Usuario",
-            description = "Retorna a lista de todos os Usuarios"
+            description = "Encontra os usuarios pelo ID"
     )
 
     public ResponseEntity<?> buscarUsuarioPorId(@PathVariable Integer id) {
@@ -75,7 +75,7 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     @Operation(
             summary = "Metodo de deletar Usuario",
-            description = "Retorna a lista de todos os Usuarios cadastrados"
+            description = "Metodo para deletar um Usuario Existente"
     )
     public ResponseEntity<?> deletarUsuarioPorId(@PathVariable Integer id) {
 
@@ -95,7 +95,7 @@ public class UsuarioController {
     @PutMapping("/{id}")
     @Operation(
             summary = "Metodo de atualizar Usuario",
-            description = "Retorna a lista de todos os Usuarios atualizados"
+            description = "Metodo para atualizar as informacoes do Usuario"
     )
     public ResponseEntity<?> atualizarUsuario (
             @PathVariable Integer id, @RequestBody UsuarioCadastroDto dto) {

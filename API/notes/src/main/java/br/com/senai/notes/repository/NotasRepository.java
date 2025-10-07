@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 
 public interface NotasRepository extends JpaRepository<Notas,Integer> {
-    List<Notas> findByUsuarioEmail(String titulo);
+    List<Notas> findByUsuarioEmail(String email);
 }
