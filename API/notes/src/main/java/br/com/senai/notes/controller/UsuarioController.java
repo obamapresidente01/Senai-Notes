@@ -5,6 +5,7 @@ import br.com.senai.notes.dto.usuario.UsuarioCadastroDto;
 import br.com.senai.notes.dto.usuario.UsuarioListarDto;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,10 @@ public class UsuarioController {
 
    // LISTAR
    @GetMapping
+   @Operation(
+           summary = "Metodo de listar Usuario",
+           description = "Retorna a lista de todos os Usuarios cadastrados"
+   )
    ResponseEntity<List<UsuarioListarDto>> listarUsuario() {
         // 1.
        List<UsuarioListarDto> usuarios = usuarioService.listarTodos();
@@ -32,6 +37,10 @@ public class UsuarioController {
 
    // CADASTRAR
     @PostMapping
+    @Operation(
+            summary = "Metodo de cadastrar Usuario",
+            description = "Retorna a lista de todos os Usuarios cadastrados"
+    )
     public ResponseEntity<Usuario> cadastrarUsuario(
             @RequestBody UsuarioCadastroDto dto) {
 
@@ -45,6 +54,10 @@ public class UsuarioController {
 
     // buscar
     @GetMapping("/{id}")
+    @Operation(
+            summary = "Metodo de buscar Usuario",
+            description = "Retorna a lista de todos os Usuarios"
+    )
 
     public ResponseEntity<?> buscarUsuarioPorId(@PathVariable Integer id) {
         //1.
@@ -60,6 +73,10 @@ public class UsuarioController {
 
     // DELETAR
     @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Metodo de deletar Usuario",
+            description = "Retorna a lista de todos os Usuarios cadastrados"
+    )
     public ResponseEntity<?> deletarUsuarioPorId(@PathVariable Integer id) {
 
         // 1.
@@ -76,6 +93,10 @@ public class UsuarioController {
 
     // ATUALIZAR
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Metodo de atualizar Usuario",
+            description = "Retorna a lista de todos os Usuarios atualizados"
+    )
     public ResponseEntity<?> atualizarUsuario (
             @PathVariable Integer id, @RequestBody UsuarioCadastroDto dto) {
         // 1.

@@ -4,7 +4,9 @@ import br.com.senai.notes.dto.anotacao.AnotacaoCadastrarDTO;
 import br.com.senai.notes.dto.anotacao.AnotacaoListarDTO;
 import br.com.senai.notes.model.Notas;
 import br.com.senai.notes.service.NotasService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/notas")
 @SecurityRequirement(name = "segurancanotes")
+@Tag(name = "Notas", description = "Metodos de Notas")
 
 public class NotasController {
 
@@ -24,6 +27,10 @@ public class NotasController {
     }
 
     @GetMapping
+    @Operation(
+            summary = "Metodo de Listar todas as Anotacoes",
+            description = "Retorna a lista de todas as anotacoes cadastradas"
+    )
     //listar todas as notas
     public ResponseEntity<List<AnotacaoListarDTO>> Listar() {
         //1-pegar lista
@@ -32,6 +39,11 @@ public class NotasController {
     }
 
     @PostMapping
+    @Operation(
+            summary = "Metodo de cadastrar todas as Anotacoes",
+            description = "Retorna a lista de todas as anotacoes cadastradas"
+    )
+
     //cadastrar notas
     public ResponseEntity<Notas> cadastrarNota(@RequestBody AnotacaoCadastrarDTO dto) {
 
@@ -45,6 +57,10 @@ public class NotasController {
     }
 
     @GetMapping("/{id}")
+    @Operation(
+            summary = "Metodo de buscar todas as Anotacoes",
+            description = "Retorna a lista de todas as anotacoes cadastradas"
+    )
     //buscar anotacao por id
     public ResponseEntity<?> buscarAnotacaoPorId(@PathVariable Integer id) {
         //1-procurar anotacao
@@ -59,6 +75,10 @@ public class NotasController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Metodo de deletar todas as Anotacoes",
+            description = "Retorna a lista de todas as anotacoes cadastradas"
+    )
     //deletar anotacao
     public ResponseEntity<?> deletarAnotacao(@PathVariable Integer id) {
         //1-verificar se a anotacao existe
@@ -72,6 +92,10 @@ public class NotasController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Metodo de atualizar Anotacoes",
+            description = "Retorna a lista de todas as anotacoes cadastradas"
+    )
     public ResponseEntity<?> atualizarAnotacao(@PathVariable Integer id, @RequestBody Notas notaNova) {
         //1-procuro a anotacao e tento atualizar
         Notas notas = notasService.atualizarNotas(id, notaNova);
