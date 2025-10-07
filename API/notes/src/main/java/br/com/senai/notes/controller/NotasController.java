@@ -38,6 +38,7 @@ public class NotasController {
         Notas anotacaoSalva = notasService.cadastrarNotas(dto);
 
 //        if(anotacaoSalva == null){
+
 //            return ResponseEntity.badRequest();
 //        }
 
