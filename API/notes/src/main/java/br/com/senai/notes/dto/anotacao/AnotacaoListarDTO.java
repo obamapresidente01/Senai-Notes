@@ -1,6 +1,7 @@
 package br.com.senai.notes.dto.anotacao;
 
 
+import br.com.senai.notes.dto.usuario.UsuarioListarDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +13,6 @@ public class AnotacaoListarDTO {
     private String titulo;
     private String conteudo;
     private String imagemUrl;
-    private String tag_id;
+    private Integer tag_id;
+    private UsuarioListarDto usuario;
 }

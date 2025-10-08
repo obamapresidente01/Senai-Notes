@@ -7,6 +7,4 @@ import lombok.Data;
 public class ListarTagDTO {
     private Integer id;
     private String titulo;
-    // TODO: Trocar para DTO de Usuario
-    private Usuario usuario;
 }

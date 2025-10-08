@@ -32,10 +32,10 @@ public class UsuarioController {
 
    // CADASTRAR
     @PostMapping
-    public ResponseEntity<Usuario> cadastrarUsuario(
+    public ResponseEntity<UsuarioListarDto> cadastrarUsuario(
             @RequestBody UsuarioCadastroDto dto) {
 
-        Usuario usuario = usuarioService.cadastrarUsuario(dto);
+        UsuarioListarDto usuario = usuarioService.cadastrarUsuario(dto);
 
         //1.
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
