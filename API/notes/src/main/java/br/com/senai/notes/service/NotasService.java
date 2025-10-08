@@ -74,6 +74,8 @@ public class NotasService {
         novaAnotacao.setData(OffsetDateTime.now());
 
         notasRepository.save(novaAnotacao);
+        usuarioAssociado.setSenha(null);
+
 
         UsuarioListarDto usuarioDto = new UsuarioListarDto();
         usuarioDto.setNomeCompleto(usuarioAssociado.getNomeCompleto());
