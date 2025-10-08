@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/tags")
 @SecurityRequirement(name = "segurancanotes")
+
 @io.swagger.v3.oas.annotations.tags.Tag(name = "Tags", description = "Metodos de Tags")
 public class TagController {
 
@@ -25,6 +26,7 @@ public class TagController {
 
     // LISTAR TODAS
     @GetMapping
+
     @Operation (
             summary = "Metodo de Listar todas as tags",
             description = "Retorna a lista de todas as tags cadastradas"
@@ -45,6 +47,7 @@ public class TagController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novaTag);
     }
 
+
     // LISTAR POR EMAIL
 
     @GetMapping("/usuario/{email}")
@@ -58,6 +61,7 @@ public class TagController {
 
         return ResponseEntity.ok(tags);
     }
+
 
     // BUSCAR POR ID
     @GetMapping("/{id}")
