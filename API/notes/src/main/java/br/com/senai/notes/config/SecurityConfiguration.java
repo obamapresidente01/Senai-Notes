@@ -18,8 +18,12 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -60,6 +64,29 @@ public class SecurityConfiguration {
         // UserDetailsService e PasswordEncoder para validar as credenciais de login.
         return config.getAuthenticationManager();
     }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+
+        // 1. Defina a origem do seu frontend (4200 é o padrão do Angular)
+        config.setAllowedOrigins(List.of("http://localhost:4200"));
+
+        // 2. Defina os métodos HTTP permitidos
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // 3. Permita todos os cabeçalhos
+        config.setAllowedHeaders(List.of("*"));
+
+        // 4. Permita o envio de credenciais (tokens, cookies)
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // Aplica as configurações a todas as rotas da API ("/**")
+        source.registerCorsConfiguration("/**", config);
+
+        return source;
+    }
+
 
     // --- O FILTRO DE SEGURANÇA ---
 
@@ -68,6 +95,7 @@ public class SecurityConfiguration {
             throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults())
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
