@@ -75,7 +75,7 @@ public class NotasController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/buscarEmail/{email}")
     @Operation(
             summary = "Metodo de buscar todas as Anotacoes por Email",
             description = "Buscar Anotacoes por Email"
