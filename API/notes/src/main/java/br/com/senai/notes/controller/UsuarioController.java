@@ -5,7 +5,6 @@ import br.com.senai.notes.dto.usuario.UsuarioCadastroDto;
 import br.com.senai.notes.dto.usuario.UsuarioListarDto;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.service.UsuarioService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +23,6 @@ public class UsuarioController {
 
    // LISTAR
    @GetMapping
-   @Operation(
-           summary = "Metodo de listar Usuario",
-           description = "Retorna a lista de todos os Usuarios cadastrados"
-   )
    ResponseEntity<List<UsuarioListarDto>> listarUsuario() {
         // 1.
        List<UsuarioListarDto> usuarios = usuarioService.listarTodos();
@@ -37,14 +32,10 @@ public class UsuarioController {
 
    // CADASTRAR
     @PostMapping
-    @Operation(
-            summary = "Metodo de cadastrar Usuario",
-            description = "Metodo para cadastrar Usuario"
-    )
-    public ResponseEntity<Usuario> cadastrarUsuario(
+    public ResponseEntity<UsuarioListarDto> cadastrarUsuario(
             @RequestBody UsuarioCadastroDto dto) {
 
-        Usuario usuario = usuarioService.cadastrarUsuario(dto);
+        UsuarioListarDto usuario = usuarioService.cadastrarUsuario(dto);
 
         //1.
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
@@ -54,10 +45,6 @@ public class UsuarioController {
 
     // buscar
     @GetMapping("/{id}")
-    @Operation(
-            summary = "Metodo de buscar Usuario",
-            description = "Encontra os usuarios pelo ID"
-    )
 
     public ResponseEntity<?> buscarUsuarioPorId(@PathVariable Integer id) {
         //1.
@@ -73,10 +60,6 @@ public class UsuarioController {
 
     // DELETAR
     @DeleteMapping("/{id}")
-    @Operation(
-            summary = "Metodo de deletar Usuario",
-            description = "Metodo para deletar um Usuario Existente"
-    )
     public ResponseEntity<?> deletarUsuarioPorId(@PathVariable Integer id) {
 
         // 1.
@@ -93,10 +76,6 @@ public class UsuarioController {
 
     // ATUALIZAR
     @PutMapping("/{id}")
-    @Operation(
-            summary = "Metodo de atualizar Usuario",
-            description = "Metodo para atualizar as informacoes do Usuario"
-    )
     public ResponseEntity<?> atualizarUsuario (
             @PathVariable Integer id, @RequestBody UsuarioCadastroDto dto) {
         // 1.

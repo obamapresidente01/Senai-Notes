@@ -2,6 +2,7 @@ package br.com.senai.notes.service;
 
 import br.com.senai.notes.dto.anotacao.AnotacaoCadastrarDTO;
 import br.com.senai.notes.dto.anotacao.AnotacaoListarDTO;
+import br.com.senai.notes.dto.usuario.UsuarioListarDto;
 import br.com.senai.notes.model.Notas;
 import br.com.senai.notes.model.Tag;
 import br.com.senai.notes.model.Usuario;
@@ -73,11 +74,18 @@ public class NotasService {
         novaAnotacao.setData(OffsetDateTime.now());
 
         notasRepository.save(novaAnotacao);
+        usuarioAssociado.setSenha(null);
+
+
+        UsuarioListarDto usuarioDto = new UsuarioListarDto();
+        usuarioDto.setNomeCompleto(usuarioAssociado.getNomeCompleto());
+        usuarioDto.setEmail(usuarioAssociado.getEmail());
 
         AnotacaoListarDTO anotacaoListarDTO = new AnotacaoListarDTO();
         anotacaoListarDTO.setTitulo(dto.getTitulo());
         anotacaoListarDTO.setConteudo(dto.getConteudo());
         anotacaoListarDTO.setImagemUrl(dto.getImagemUrl());
+        anotacaoListarDTO.setUsuario(usuarioDto);
 
         return novaAnotacao;
     }

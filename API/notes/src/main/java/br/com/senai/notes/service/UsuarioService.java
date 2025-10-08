@@ -54,7 +54,7 @@ public class UsuarioService {
 
 
     // CADASTRAR
-    public Usuario cadastrarUsuario(UsuarioCadastroDto dto) {
+    public UsuarioListarDto cadastrarUsuario(UsuarioCadastroDto dto) {
 
         Usuario usuario = new Usuario();
 
@@ -63,9 +63,16 @@ public class UsuarioService {
         usuario.setNomeCompleto(dto.getNomeCompleto());
         usuario.setSenha(senhaCriptografada);
 
+        usuarioRepository.save(usuario);
 
 
-        return usuarioRepository.save(usuario);
+        UsuarioListarDto usuarioListarDto = new UsuarioListarDto();
+        usuarioListarDto.setNomeCompleto(dto.getNomeCompleto());
+        usuarioListarDto.setEmail(dto.getEmail());
+        usuarioListarDto.setUsuarioId(usuario.getUsuarioId());
+
+
+        return usuarioListarDto ;
     }
 
     // BUSCAR

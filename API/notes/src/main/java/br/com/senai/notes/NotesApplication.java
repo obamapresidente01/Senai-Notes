@@ -16,7 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SecurityScheme(
 		name = "segurancanotes", // 1. Um nome para referenciar este esquema de segurança.
 		type = SecuritySchemeType.HTTP, // 2. O tipo de segurança. HTTP é usado para Bearer, Basic Auth, etc.
-		scheme = "notes", // 3. O esquema específico. "bearer" para JWT.
+		scheme = "bearer", // 3. O esquema específico. "bearer" para JWT.
 		bearerFormat = "JWT" // 4. Um "hint" para o formato do token.
 )
 public class NotesApplication {
