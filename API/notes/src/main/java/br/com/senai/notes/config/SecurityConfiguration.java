@@ -69,7 +69,7 @@ public class SecurityConfiguration {
         CorsConfiguration config = new CorsConfiguration();
 
         // 1. Defina a origem do seu frontend (4200 é o padrão do Angular)
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
+        config.setAllowedOrigins(List.of("http://localhost:4200", "https://projeto-senai-notes-grupo-mesa-7.vercel.app/"));
 
         // 2. Defina os métodos HTTP permitidos
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
