@@ -44,7 +44,7 @@ public class NotasController {
             description = "Cadastro de Anotacoes"
     )
 
-    //cadastrar notas
+    //cadastrar anotacoes
     public ResponseEntity<Notas> cadastrarNota(@RequestBody AnotacaoCadastrarDTO dto) {
 
         Notas anotacaoSalva = notasService.cadastrarNotas(dto);
