@@ -50,7 +50,7 @@ public class TagService {
         Usuario usuarioAssociado = usuarioRepository.findById(dto.getUsuarioId()).orElse(null);
 
         if (usuarioAssociado == null) {
-            return null; // ou pode lançar uma exceção customizada
+            return null;
         }
 
         Tag novaTag = new Tag();
