@@ -82,12 +82,12 @@ public class NotasController {
             description = "Buscar Anotacoes por Email"
     )
     //buscar anotacao por EMAIL
-    public ResponseEntity<?> buscarAnotacaoPorEmail(@PathVariable String email) {
+    public ResponseEntity<List<AnotacaoListarDTO>> buscarAnotacaoPorEmail(@PathVariable String email) {
         //1-procurar anotacao
-        List<Notas> notas = notasService.buscarPorEmail(email);
+        List<AnotacaoListarDTO> notas = notasService.buscarPorEmail(email);
         //2-se nao encontrar, retornar erro
         if (notas == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Anotacão " + email + "não encontrada!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         //3-se encontrar, retorno a anotacao
         return ResponseEntity.ok(notas);

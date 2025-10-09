@@ -43,12 +43,23 @@ public class NotasService {
 
     private AnotacaoListarDTO converterParaListagemDTO(Notas notas) {
         AnotacaoListarDTO dto = new AnotacaoListarDTO();
+        Usuario usuario = usuarioRepository.findByEmail(notas.getUsuario().getEmail()).orElse(null);
+        if (usuario == null) {
+            return null;
+        }
+
+        UsuarioListarDto usuarioListarDto = new UsuarioListarDto();
+        usuarioListarDto.setEmail(usuario.getEmail());
+        usuarioListarDto.setUsuarioId(usuario.getUsuarioId());
+        usuarioListarDto.setNomeCompleto(usuario.getNomeCompleto());
+
 
         //mapeamento campo a campo
         dto.setTitulo(notas.getTitulo());
         dto.setConteudo(notas.getConteudo());
         dto.setImagemUrl(notas.getImagemUrl());
-        //dto.setTag_id(notas.getTag_id());
+        dto.setTag_id(notas.getNotasId());
+        dto.setUsuario(usuarioListarDto);
 
         return dto;
     }
@@ -93,10 +104,15 @@ public class NotasService {
     //buscar por id
     public Notas buscarPorId(Integer id) {
         return notasRepository.findById(id).orElse(null);
+
+
     }
 
     //buscar por email
-    public List<Notas> buscarPorEmail(String email) { return notasRepository.findByUsuarioEmail(email); }
+    public List<AnotacaoListarDTO> buscarPorEmail(String email) {
+        List<Notas> notas = notasRepository.findByUsuarioEmail(email);
+        return notas.stream().map(this::converterParaListagemDTO).collect(Collectors.toList());
+        }
 
     //deletar notas
     public Notas deletarNotas(Integer id) {
