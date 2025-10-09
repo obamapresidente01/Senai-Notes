@@ -5,7 +5,9 @@ import br.com.senai.notes.dto.usuario.UsuarioCadastroDto;
 import br.com.senai.notes.dto.usuario.UsuarioListarDto;
 import br.com.senai.notes.model.Usuario;
 import br.com.senai.notes.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/usuarios")
 @SecurityRequirement(name = "segurancanotes")
+@Tag(name = "Usuario", description = "Metodos de Usuario")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -23,6 +26,10 @@ public class UsuarioController {
 
    // LISTAR
    @GetMapping
+   @Operation(
+           summary = "Metodo de listar Usuarios",
+           description = "Esse metodo mostra todos os Usuarios"
+   )
    ResponseEntity<List<UsuarioListarDto>> listarUsuario() {
         // 1.
        List<UsuarioListarDto> usuarios = usuarioService.listarTodos();
@@ -32,6 +39,10 @@ public class UsuarioController {
 
    // CADASTRAR
     @PostMapping
+    @Operation(
+            summary = "Metodo de cadastrar Usuarios",
+            description = "Esse metodo cadastra novos Usuarios"
+    )
     public ResponseEntity<UsuarioListarDto> cadastrarUsuario(
             @RequestBody UsuarioCadastroDto dto) {
 
@@ -45,6 +56,10 @@ public class UsuarioController {
 
     // buscar
     @GetMapping("/{id}")
+    @Operation(
+            summary = "Metodo de buscar Usuarios por id",
+            description = "Esse metodo busca Usuario"
+    )
 
     public ResponseEntity<?> buscarUsuarioPorId(@PathVariable Integer id) {
         //1.
@@ -60,6 +75,10 @@ public class UsuarioController {
 
     // DELETAR
     @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Metodo de deletar Usuarios",
+            description = "Esse metodo deleta Usuarios"
+    )
     public ResponseEntity<?> deletarUsuarioPorId(@PathVariable Integer id) {
 
         // 1.
@@ -76,6 +95,10 @@ public class UsuarioController {
 
     // ATUALIZAR
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Metodo de atualizar Usuarios",
+            description = "Esse metodo atualiza os Usuarios"
+    )
     public ResponseEntity<?> atualizarUsuario (
             @PathVariable Integer id, @RequestBody UsuarioCadastroDto dto) {
         // 1.
